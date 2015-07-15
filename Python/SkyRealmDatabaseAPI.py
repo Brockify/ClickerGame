@@ -22,14 +22,35 @@ def get_user_password():
 
 
 def create_account():
-    username = raw_input("Type in a username: ")
-    password = raw_input("Type in a password: ")
-    
-    query = "insert into PokeWarUsers(Username, OriginalUsername, Password) values (%s, %s, %s)"
+    failuser = True
+    UsernameCursor = db.cursor()
+    while failuser == True:
+        username = raw_input("Type in a username: ")
+        checkUsername = "select Username from PokeWarUsers %s = username"
+        UsernameCursor.execute(checkUsername, username)
+        usernameToCheck = UsernameCursor.fetchone()[0]
+        for x in usernameToCheck:
+            print str(x)
+
+        if username.lower() == str(usernameToCheck):
+            print "Username is already in use!"
+        else:
+            failuser = False
+
+    failpass = True
+    while failpass == True:
+        password = raw_input("Type in a password: ")
+        if len(password) < 4:
+            print "Password must exceed 4 characters!"
+        else:
+            failpass = False
+    email = raw_input("Type in your email: ")
+
+    query = "insert into PokeWarUsers(Username, OriginalUsername, Password, Email) values (%s, %s, %s, %s)"
 
 
 
-    CUR.execute(query, (username.lower(), username, password))
+    CUR.execute(query, (username.lower(), username, password, email))
 
 
 create_account()
