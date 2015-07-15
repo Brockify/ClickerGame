@@ -26,13 +26,10 @@ def create_account():
     UsernameCursor = db.cursor()
     while failuser == True:
         username = raw_input("Type in a username: ")
-        checkUsername = "select Username from PokeWarUsers %s = username"
+        checkUsername = "select Username from PokeWarUsers where username=%s"
         UsernameCursor.execute(checkUsername, username)
         usernameToCheck = UsernameCursor.fetchone()[0]
-        for x in usernameToCheck:
-            print str(x)
-
-        if username.lower() == str(usernameToCheck):
+        if username.lower() == usernameToCheck:
             print "Username is already in use!"
         else:
             failuser = False
