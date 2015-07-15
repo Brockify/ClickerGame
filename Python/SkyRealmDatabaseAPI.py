@@ -18,4 +18,18 @@ def get_user_password():
             else:
                 print("ERROR: Invalid username.")
 
-get_user_password()
+
+
+
+def create_account():
+    username = raw_input("Type in a username: ")
+    password = raw_input("Type in a password: ")
+    
+    query = "insert into PokeWarUsers(Username, OriginalUsername, Password) values (%s, %s, %s)"
+
+
+
+    CUR.execute(query, (username.lower(), username, password))
+
+
+create_account()
