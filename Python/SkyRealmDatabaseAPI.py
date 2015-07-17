@@ -77,4 +77,15 @@ def send_friend_request(UserSending, UserReceiving):
         else:
             return "Friend request already sent to this person"
 
+#accept_friend_request returns "Friend Added" if friend is added and returns "User Already a friend" to catch errors
+def accept_friend_request(LoggedInUser, OtherUser):
+    sql = "select LoggedInUser from PokeWarFriend where LoggedInUser=%s and OtherUser=%s"
+    CUR.execute(sql, (LoggedInUser, OtherUser))
+    if CUR.fetchone() == None:
+        sql = "insert into PokeWarFriend(LoggedInUser, OtherUser) values (%s, %s)"
+        CUR.execute(sql, (LoggedInUser, OtherUser))
+        return "Friend Added"
+    else:
+        return "User Already a friend"
 
+print accept_friend_request("brock", "brandon")
