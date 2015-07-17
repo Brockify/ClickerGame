@@ -56,7 +56,25 @@ def login_script(username, password):
         query = "select Password from PokeWarUsers where Username=%s"
         CUR.execute(query, username)
         if CUR.fetchone()[0] == password:
-            return "sucess"
+            return "success"
         else:
             return "fail"
+
+#send friend request script, returns "User Doesn't Exist if the receiver doesn't exist", says "Friend Request
+#already sent to this person" if they already are pending and "Friend Added" if they were added successfuly
+def send_friend_request(UserSending, UserReceiving):
+    sql = "select Username from PokeWarUsers where Username=%s"
+    CUR.execute(sql, UserReceiving)
+    if CUR.fetchone() == None:
+        return "User Doesn't exist"
+    else:
+        sql = "select UserReceiving from PokeWarFriendRequest where UserSending=%s and UserReceiving=%s"
+        CUR.execute(sql, (UserSending, UserReceiving))
+        if CUR.fetchone() == None:
+            sql = "insert into PokeWarFriendRequest(UserSending, UserReceiving) values (%s, %s)"
+            CUR.execute(sql, (UserSending, UserReceiving))
+            return "Friend Added"
+        else:
+            return "Friend request already sent to this person"
+
 
