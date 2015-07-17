@@ -84,8 +84,17 @@ def accept_friend_request(LoggedInUser, OtherUser):
     if CUR.fetchone() == None:
         sql = "insert into PokeWarFriend(LoggedInUser, OtherUser) values (%s, %s)"
         CUR.execute(sql, (LoggedInUser, OtherUser))
+        sql = "insert into PokeWarFriend(OtherUser,LoggedInUser) values (%s, %s)"
+        CUR.execute(sql, (LoggedInUser, OtherUser))
         return "Friend Added"
     else:
         return "User Already a friend"
 
-print accept_friend_request("brock", "brandon")
+#returns "User has no friends" if they don't have any friends and returns a list of users if they do
+def list_friends(username):
+    sql = "select all OtherUser from PokeWarFriend where LoggedInUser=%s"
+    CUR.execute(sql, username)
+    if CUR.fetchall() == None:
+        return "User has no friends"
+    else:
+        return CUR
