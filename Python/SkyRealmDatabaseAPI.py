@@ -32,7 +32,6 @@ def create_account():
 def get_username(id):
     query = "select Username from PokeWarUsers where Username=%s"
     CUR.execute(query, id)
-    print CUR.fetchone()[0]
     return CUR.fetchone()[0]
 
 #gets a users email
@@ -41,10 +40,23 @@ def get_email(username):
     CUR.execute(query, username)
     return CUR.fetchone()[0]
 
+#gets a users password
 def get_password(username):
     query = "select Password from PokeWarUsers where Username=%s"
     CUR.execute(query, username)
     return CUR.fetchone()[0]
 
-print get_email("brock")
-print get_password("brock")
+#login script, returns sucess if user can login, returns fail if user can't login
+def login_script(username, password):
+    query = "select username from PokeWarUsers where username=%s"
+    CUR.execute(query, username)
+    if CUR.fetchone() == None:
+        return "Username doesn't exist"
+    else:
+        query = "select Password from PokeWarUsers where Username=%s"
+        CUR.execute(query, username)
+        if CUR.fetchone()[0] == password:
+            return "sucess"
+        else:
+            return "fail"
+
