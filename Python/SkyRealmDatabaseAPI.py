@@ -22,6 +22,10 @@ def create_account():
         password = raw_input("Type in a password: ")
         if len(password) < 4:
             print "Password must exceed 4 characters!"
+        elif len(password) > 16:
+            print "Password must be less than 16 characters!"
+        if password == username:
+            print "password cannot be the same as your username!"
         else:
             failpass = False
     email = raw_input("Type in your email: ")
@@ -98,3 +102,8 @@ def list_friends(username):
         return "User has no friends"
     else:
         return CUR
+def profanity_filter(word):
+    profanity = ["fuck", "bitch", "ass", "cunt", "twat", "dick", "vagina", "penis","nigga", "niggar", "nigger", "gay", "fag", "faggot", "bastard"]
+    for badword in profanity:
+        if word == badword:
+            return "profanity!"
