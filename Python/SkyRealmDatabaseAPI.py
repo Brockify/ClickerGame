@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import MySQLdb
-
+import urllib2
 db = MySQLdb.connect("173.254.28.39", "skyrealm","AndrewBrock@2013","skyrealm_FindMyPeeps")
 CUR = db.cursor()
 
@@ -14,6 +14,8 @@ def create_account():
         usernameToCheck = UsernameCursor.fetchone()
         if username.lower() == usernameToCheck:
             print "Username is already in use!"
+        elif profanity_filter(username.lower()) == "Profanity!":
+            print "Invalid username, username may not contain vulgar language!"
         else:
             failuser = False
 
@@ -103,7 +105,9 @@ def list_friends(username):
     else:
         return CUR
 def profanity_filter(word):
-    profanity = ["fuck", "bitch", "ass", "cunt", "twat", "dick", "vagina", "penis","nigga", "niggar", "nigger", "gay", "fag", "faggot", "bastard"]
-    for badword in profanity:
-        if word == badword:
-            return "profanity!"
+    profanity = urllib2.urlopen("http://www.skyrealmstudio.com/profanity.txt").read(20000)
+    profanity = profanity.split("\n")
+    for badword in  profanity:
+        if word.find(badword) != -1:
+            word = word.replace(badword, "*****")
+            return "Profanity!"
