@@ -31,9 +31,41 @@ def create_account():
         else:
             failpass = False
     email = raw_input("Type in your email: ")
-    query = "insert into PokeWarUsers(Username, OriginalUsername, Password, Email) values (%s, %s, %s, %s)"
-    CUR.execute(query, (username.lower(), username, password, email))
+    if failuser == False and Failpass == False:
+        query = "insert into PokeWarUsers(Username, OriginalUsername, Password, Email) values (%s, %s, %s, %s)"
+        CUR.execute(query, (username.lower(), username, password, email))
+        return "success"
+    else:
+        return "fail"
 
+def register_check(username, password):
+    failuser = True
+    UsernameCursor = db.cursor()
+    while failuser == True:
+        checkUsername = "select Username from PokeWarUsers where username=%s"
+        UsernameCursor.execute(checkUsername, username)
+        usernameToCheck = UsernameCursor.fetchone()
+        if username.lower() == usernameToCheck:
+            print "Username is already in use!"
+        elif profanity_filter(username.lower()) == "Profanity!":
+            print "Invalid username, username may not contain vulgar language!"
+        else:
+            failuser = False
+
+    failpass = True
+    while failpass == True:
+        if len(password) < 4:
+            print "Password must exceed 4 characters!"
+        elif len(password) > 16:
+            print "Password must be less than 16 characters!"
+        if password == username:
+            print "password cannot be the same as your username!"
+        else:
+            failpass = False
+    if failuser == False and failpass == False:
+        print "success"
+    else:
+        print "fail"
 #gets users username
 def get_username(id):
     query = "select Username from PokeWarUsers where Username=%s"
