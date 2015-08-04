@@ -1,17 +1,25 @@
 #! /usr/bin/python
-
-
+print "Context-type: text/html\n\n"
 import cgi
-cgi.FieldStorage()
+import SkyRealmDatabaseAPI
 arguments = cgi.FieldStorage()
 username = arguments.getvalue("username")
 password = arguments.getvalue("password")
-email = arugments.getvalue("email")
+email = arguments.getvalue("email")
 
 if username == None or password == None or email == None:
     print "Missing parameters"
 else:
-    if SkyRealmDatabaseAPI.register_check(username, password):
-        print "account created!"
+    if SkyRealmDatabaseAPI.profanity_filter(username.lower()) == "Profanity!":
+        print "Invalid username, username may not contain vulgar language!"
+    elif len(password) < 4:
+        print "Password must exceed 4 characters!"
+    elif len(password) > 16:
+        print "Password must be less than 16 characters!"
+    elif password == username:
+        print "password cannot be the same as your username!"
     else:
-        print "error:account not created!"
+        SkyRealmDatabaseAPI.create_account(username, password, email)
+        
+
+

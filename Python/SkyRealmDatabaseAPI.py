@@ -1,77 +1,34 @@
 #!/usr/bin/python
+print "Context-type: text/html\n\n"
 import MySQLdb
 import urllib2
-db = MySQLdb.connect("173.254.28.39", "skyrealm","AndrewBrock@2013","skyrealm_FindMyPeeps")
+db = MySQLdb.connect("173.254.28.39", "skyrealm","AndrewBrock@2013","skyrealm_PokeWars")
 CUR = db.cursor()
 
-def create_account():
-    failuser = True
-    UsernameCursor = db.cursor()
-    while failuser == True:
-        username = raw_input("Type in a username: ")
-        checkUsername = "select Username from PokeWarUsers where username=%s"
-        UsernameCursor.execute(checkUsername, username)
-        usernameToCheck = UsernameCursor.fetchone()
-        if username.lower() == usernameToCheck:
-            print "Username is already in use!"
-        elif profanity_filter(username.lower()) == "Profanity!":
-            print "Invalid username, username may not contain vulgar language!"
-        else:
-            failuser = False
-
-    failpass = True
-    while failpass == True:
-        password = raw_input("Type in a password: ")
-        if len(password) < 4:
-            print "Password must exceed 4 characters!"
-        elif len(password) > 16:
-            print "Password must be less than 16 characters!"
-        if password == username:
-            print "password cannot be the same as your username!"
-        else:
-            failpass = False
-    email = raw_input("Type in your email: ")
-    if failuser == False and Failpass == False:
+def create_account(username, password, email):
+    checkUsername = "select Username from PokeWarUsers where username=%s"
+    CUR.execute(checkUsername, [username])
+    usernameToCheck = CUR.fetchone()
+    if usernameToCheck != None:
+        print "Username is already in use!"
+    checkEmail = "select email from PokeWarUsers where email=%s"
+    CUR.execute(checkEmail, [email])
+    emailToCheck = CUR.fetchone()
+    if emailToCheck != None:
+        print "email is already in use!"
+    else:
         query = "insert into PokeWarUsers(Username, OriginalUsername, Password, Email) values (%s, %s, %s, %s)"
         CUR.execute(query, (username.lower(), username, password, email))
-        return "success"
-    else:
-        return "fail"
-
-def register_check(username, password):
-    failuser = True
-    UsernameCursor = db.cursor()
-    while failuser == True:
-        checkUsername = "select Username from PokeWarUsers where username=%s"
-        UsernameCursor.execute(checkUsername, username)
-        usernameToCheck = UsernameCursor.fetchone()
-        if username.lower() == usernameToCheck:
-            print "Username is already in use!"
-        elif profanity_filter(username.lower()) == "Profanity!":
-            print "Invalid username, username may not contain vulgar language!"
-        else:
-            failuser = False
-
-    failpass = True
-    while failpass == True:
-        if len(password) < 4:
-            print "Password must exceed 4 characters!"
-        elif len(password) > 16:
-            print "Password must be less than 16 characters!"
-        if password == username:
-            print "password cannot be the same as your username!"
-        else:
-            failpass = False
-    if failuser == False and failpass == False:
-        print "success"
-    else:
-        print "fail"
+        print "Success"
 #gets users username
-def get_username(id):
+def get_username(username):
     query = "select Username from PokeWarUsers where Username=%s"
-    CUR.execute(query, id)
-    return CUR.fetchone()[0]
-
+    CUR.execute(query, [username])
+    checkifuserexists = CUR.fetchone()
+    if checkifuserexists!= None:
+        return True
+    else:
+        return False
 #gets a users email
 def get_email(username):
     query = "select Email from PokeWarUsers where Username=%s"
