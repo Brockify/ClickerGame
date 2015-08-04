@@ -2,7 +2,11 @@
 print "Context-type: text/html\n\n"
 import MySQLdb
 import urllib2
+<<<<<<< HEAD
 db = MySQLdb.connect("localhost", "skyrealm","AndrewBrock@2013","skyrealm_PokeWars")
+=======
+db = MySQLdb.connect("173.254.28.39", "skyrealm","AndrewBrock@2013","skyrealm_PokeWars")
+>>>>>>> origin/master
 CUR = db.cursor()
 
 def create_account(username, password, email):
@@ -20,6 +24,7 @@ def create_account(username, password, email):
         query = "insert into PokeWarUsers(Username, OriginalUsername, Password, Email) values (%s, %s, %s, %s)"
         CUR.execute(query, (username.lower(), username, password, email))
         print "Success"
+<<<<<<< HEAD
 
 
 #gets users username
@@ -32,6 +37,17 @@ def get_username(username):
     else:
         return False
 
+=======
+#gets users username
+def get_username(username):
+    query = "select Username from PokeWarUsers where Username=%s"
+    CUR.execute(query, [username])
+    checkifuserexists = CUR.fetchone()
+    if checkifuserexists!= None:
+        return True
+    else:
+        return False
+>>>>>>> origin/master
 #gets a users email
 def get_email(email):
     query = "select Email from PokeWarUsers where email=%s"
