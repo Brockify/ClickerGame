@@ -76,7 +76,8 @@ def login_script(username, password):
     CUR.execute(query, [username])
     checkifuserexists = CUR.fetchone()
     if checkifuserexists == None:
-       print "Username doesn't exist!"
+        print "Username doesn't exist!"
+
     else:
         query = "select Password from PokeWarUsers where Username=%s"
         CUR.execute(query, [username])

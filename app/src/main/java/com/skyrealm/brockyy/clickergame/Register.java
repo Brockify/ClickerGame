@@ -90,7 +90,7 @@ public class Register extends ActionBarActivity {
         protected void onPreExecute()
         {
             pDialog = new ProgressDialog(Register.this);
-            pDialog.setMessage("Loading friends onto map...");
+            pDialog.setMessage("Creating Account...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
