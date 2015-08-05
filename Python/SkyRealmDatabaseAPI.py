@@ -82,13 +82,20 @@ def login_script(username, password):
         query = "select Password from PokeWarUsers where Username=%s"
         CUR.execute(query, [username])
         checkifpassexists = CUR.fetchone()
+<<<<<<< Updated upstream
         if password == checkifpassexists[0]:
             print "Login Success"
 
         else:
             print "Login Failed"
 
+=======
+        if checkifpassexists == None:
+            print "Login Failed"
+>>>>>>> Stashed changes
 
+        else:
+            print "Login Success"
 #send friend request script, returns "User Doesn't Exist if the receiver doesn't exist", says "Friend Request
 #already sent to this person" if they already are pending and "Friend Added" if they were added successfuly
 def send_friend_request(UserSending, UserReceiving):
