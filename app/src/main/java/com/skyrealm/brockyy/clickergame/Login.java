@@ -63,7 +63,7 @@ public class Login extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
+
     public void loginButtonClicked(View view) {
         username = usernameEditText.getText().toString();
         password = passwordEditText.getText().toString();
