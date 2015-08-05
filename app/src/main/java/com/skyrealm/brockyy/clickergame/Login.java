@@ -1,6 +1,7 @@
 package com.skyrealm.brockyy.clickergame;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -62,6 +63,12 @@ public class Login extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void registerButtonClicked(View view)
+    {
+        Intent intent = new Intent(Login.this, Register.class);
+        startActivity(intent);
     }
 
     public void loginButtonClicked(View view) {

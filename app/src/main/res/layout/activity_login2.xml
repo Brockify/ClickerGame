@@ -36,4 +36,12 @@
         android:layout_alignEnd="@+id/passwordEditText"
         android:layout_marginTop="47dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/registerButton"
+        android:layout_below="@+id/loginButton"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
