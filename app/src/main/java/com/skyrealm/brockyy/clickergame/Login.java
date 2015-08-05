@@ -80,6 +80,8 @@ public class Login extends ActionBarActivity {
             Toast.makeText(this, "None of the fields can be empty", Toast.LENGTH_LONG).show();
         } else {
             new loginUser().execute();
+            Intent intent = new Intent(Login.this, Games_Screen.class);
+            startActivity(intent);
         }
     }
 class loginUser extends AsyncTask<Void, Void, Void>
@@ -132,6 +134,7 @@ class loginUser extends AsyncTask<Void, Void, Void>
         if(responseStr.equals("Success"))
         {
             Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_LONG).show();
+
         } else {
             Toast.makeText(Login.this, responseStr, Toast.LENGTH_LONG).show();
         }
