@@ -7,7 +7,7 @@ cgi.FieldStorage()
 arguments = cgi.FieldStorage()
 username = arguments.getvalue("username")
 password = arguments.getvalue("password")
-email = arugments.getvalue("email")
+email = arguments.getvalue("email")
 
 if username == None and email == None or password == None:
     print "parameter missing!"

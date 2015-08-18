@@ -2,11 +2,11 @@
 print "Context-type: text/html\n\n"
 import MySQLdb
 import urllib2
-<<<<<<< HEAD
-db = MySQLdb.connect("localhost", "skyrealm","AndrewBrock@2013","skyrealm_PokeWars")
-=======
+
+
+
 db = MySQLdb.connect("173.254.28.39", "skyrealm","AndrewBrock@2013","skyrealm_PokeWars")
->>>>>>> origin/master
+
 CUR = db.cursor()
 
 def create_account(username, password, email):
@@ -24,7 +24,6 @@ def create_account(username, password, email):
         query = "insert into PokeWarUsers(Username, OriginalUsername, Password, Email) values (%s, %s, %s, %s)"
         CUR.execute(query, (username.lower(), username, password, email))
         print "Success"
-<<<<<<< HEAD
 
 
 #gets users username
@@ -37,7 +36,7 @@ def get_username(username):
     else:
         return False
 
-=======
+
 #gets users username
 def get_username(username):
     query = "select Username from PokeWarUsers where Username=%s"
@@ -47,7 +46,7 @@ def get_username(username):
         return True
     else:
         return False
->>>>>>> origin/master
+
 #gets a users email
 def get_email(email):
     query = "select Email from PokeWarUsers where email=%s"
@@ -65,7 +64,7 @@ def get_password(password):
     query = "select Password from PokeWarUsers where password=%s"
     CUR.execute(query, password)
     checkifpassexists = CUR.fetchone()
-    if checkifpassexits != None:
+    if checkifpassexists != None:
         return True
     else:
         return False
@@ -82,20 +81,21 @@ def login_script(username, password):
         query = "select Password from PokeWarUsers where Username=%s"
         CUR.execute(query, [username])
         checkifpassexists = CUR.fetchone()
-<<<<<<< Updated upstream
+
         if password == checkifpassexists[0]:
             print "Login Success"
 
         else:
             print "Login Failed"
 
-=======
+
         if checkifpassexists == None:
             print "Login Failed"
->>>>>>> Stashed changes
+
 
         else:
             print "Login Success"
+
 #send friend request script, returns "User Doesn't Exist if the receiver doesn't exist", says "Friend Request
 #already sent to this person" if they already are pending and "Friend Added" if they were added successfuly
 def send_friend_request(UserSending, UserReceiving):
@@ -114,26 +114,38 @@ def send_friend_request(UserSending, UserReceiving):
             return "Friend request already sent to this person"
 
 #accept_friend_request returns "Friend Added" if friend is added and returns "User Already a friend" to catch errors
-def accept_friend_request(LoggedInUser, OtherUser):
-    sql = "select LoggedInUser from PokeWarFriend where LoggedInUser=%s and OtherUser=%s"
-    CUR.execute(sql, (LoggedInUser, OtherUser))
-    if CUR.fetchone() == None:
-        sql = "insert into PokeWarFriend(LoggedInUser, OtherUser) values (%s, %s)"
-        CUR.execute(sql, (LoggedInUser, OtherUser))
-        sql = "insert into PokeWarFriend(OtherUser,LoggedInUser) values (%s, %s)"
-        CUR.execute(sql, (LoggedInUser, OtherUser))
-        return "Friend Added"
+def accept_friend_request(UserSending, UserReceiving):
+    sql = "select UserSending from PokeWarFriendRequest where UserReceiving=%s"
+    potentialfriend = CUR.execute(sql, [UserReceiving])
+    if potentialfriend == None:
+        "weird"
     else:
-        return "User Already a friend"
+        sql = "insert into PokeWarFriend(LoggedInUser, OtherUser) values (%s, %s)"
+        CUR.execute(sql, (UserSending, UserReceiving))
+        sql = "insert into PokeWarFriend(OtherUser,LoggedInUser) values (%s, %s)"
+        CUR.execute(sql, (UserReceiving, UserSending))
+        return "Friend Added"
+def list_pending_friends(username):
+    sql = "select all UserSending from PokeWarFriendRequest where UserReceiving=%s"
+    CUR.execute(sql, [username])
+    pendingfriends = CUR.fetchall()
+    if pendingrfriends == 0:
+        print "No Friend Requests"
+    else:
+        for i in pendingfriends:
+            print i[0]
+
 
 #returns "User has no friends" if they don't have any friends and returns a list of users if they do
 def list_friends(username):
     sql = "select all OtherUser from PokeWarFriend where LoggedInUser=%s"
-    CUR.execute(sql, username)
-    if CUR.fetchall() == None:
-        return "User has no friends"
+    CUR.execute(sql, [username])
+    friendslist = CUR.fetchall()
+    if friendslist == 0:
+        print "User has no friends"
     else:
-        return CUR
+        for i in friendslist:
+            print i[0]
 def profanity_filter(word):
     profanity = urllib2.urlopen("http://www.skyrealmstudio.com/profanity.txt").read(20000)
     profanity = profanity.split("\n")

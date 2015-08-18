@@ -1,26 +1,23 @@
 package com.skyrealm.brockyy.clickergame;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 
-public class Games_Screen extends ActionBarActivity {
+public class Friends_List extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_games__screen);
+        setContentView(R.layout.activity_friends__list);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_games__screen, menu);
+        getMenuInflater().inflate(R.menu.menu_friends__list, menu);
         return true;
     }
 
@@ -38,11 +35,4 @@ public class Games_Screen extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void FriendsButtonClicked(View view) {
-        Intent intent = new Intent(Games_Screen.this, Friends_List.class);
-        startActivity(intent);
-
-
-        }
 }
