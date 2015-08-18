@@ -109,27 +109,27 @@ def send_friend_request(UserSending, UserReceiving):
         if CUR.fetchone() == None:
             sql = "insert into PokeWarFriendRequest(UserSending, UserReceiving) values (%s, %s)"
             CUR.execute(sql, (UserSending, UserReceiving))
-            return "Friend Added"
+            print "Friend request sent"
         else:
-            return "Friend request already sent to this person"
+            print "Friend request already sent to this person"
 
 #accept_friend_request returns "Friend Added" if friend is added and returns "User Already a friend" to catch errors
 def accept_friend_request(UserSending, UserReceiving):
     sql = "select UserSending from PokeWarFriendRequest where UserReceiving=%s"
     potentialfriend = CUR.execute(sql, [UserReceiving])
     if potentialfriend == None:
-        "weird"
+        print "weird"
     else:
         sql = "insert into PokeWarFriend(LoggedInUser, OtherUser) values (%s, %s)"
         CUR.execute(sql, (UserSending, UserReceiving))
         sql = "insert into PokeWarFriend(OtherUser,LoggedInUser) values (%s, %s)"
-        CUR.execute(sql, (UserReceiving, UserSending))
-        return "Friend Added"
+        CUR.execute(sql, (UserSending, UserReceiving))
+        print "Friend Added"
 def list_pending_friends(username):
     sql = "select all UserSending from PokeWarFriendRequest where UserReceiving=%s"
     CUR.execute(sql, [username])
     pendingfriends = CUR.fetchall()
-    if pendingrfriends == 0:
+    if pendingfriends == ():
         print "No Friend Requests"
     else:
         for i in pendingfriends:
@@ -141,7 +141,7 @@ def list_friends(username):
     sql = "select all OtherUser from PokeWarFriend where LoggedInUser=%s"
     CUR.execute(sql, [username])
     friendslist = CUR.fetchall()
-    if friendslist == 0:
+    if friendslist == ():
         print "User has no friends"
     else:
         for i in friendslist:
@@ -153,3 +153,5 @@ def profanity_filter(word):
         if word.find(badword) != -1:
             word = word.replace(badword, "*****")
             return "Profanity!"
+
+
