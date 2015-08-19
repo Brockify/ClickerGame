@@ -29,16 +29,14 @@ import java.util.List;
 
 public class Friends_List extends ActionBarActivity {
     ArrayList<String> friendsusername = new ArrayList<String>();
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends__list);
-
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.friend_list_layout, R.id.friendusername, friendsusername);
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);
-        String username = getIntent().getExtras().getString("username");
+        username = getIntent().getExtras().getString("username");
+       new friendlist().execute();
 
     }
 
@@ -83,13 +81,11 @@ public class Friends_List extends ActionBarActivity {
             HttpResponse response;
             String responseStr = null;
             String friend;
-            String usernames;
-
-            JSONObject obj = null;
+            String jsonStr = null;
+            JSONArray json = null;
             // Create a new HttpClient and Post Header
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://www.skyrealmstudio.com/cgi-bin/Friends_List.py");
-            JSONArray json = null;
+            HttpPost httppost = new HttpPost("http://www.skyrealmstudio.com/cgi-bin/PokeWars/Friends_List.py");
 
 
             try {
@@ -101,6 +97,8 @@ public class Friends_List extends ActionBarActivity {
                 // Execute HTTP Post Request
                 response = httpclient.execute(httppost);
                 responseStr = EntityUtils.toString(response.getEntity());
+                jsonStr = responseStr;
+
 
             } catch (ClientProtocolException e) {
                 // TODO Auto-generated catch block
@@ -109,7 +107,7 @@ public class Friends_List extends ActionBarActivity {
             }
             System.out.println(responseStr);
             try {
-                json = new JSONArray(responseStr);
+                json = new JSONArray(jsonStr);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -122,6 +120,14 @@ public class Friends_List extends ActionBarActivity {
                 }
             return null;
 
+        }
+
+        public void onPostExecute(Void result)
+        {
+            ArrayAdapter adapter = new ArrayAdapter(Friends_List.this, R.layout.friend_list_layout, R.id.friendusername, friendsusername);
+            ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setAdapter(adapter);
+            pDialog.dismiss();
         }
     }
 }
