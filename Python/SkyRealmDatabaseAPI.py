@@ -6,7 +6,7 @@ import json
 
 
 
-db = MySQLdb.connect("173.254.28.39", "skyrealm","AndrewBrock@2013","skyrealm_PokeWars")
+db = MySQLdb.connect("localhost", "skyrealm","AndrewBrock@2013","skyrealm_PokeWars")
 
 CUR = db.cursor()
 
