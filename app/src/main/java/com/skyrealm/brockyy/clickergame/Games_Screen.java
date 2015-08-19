@@ -15,6 +15,7 @@ public class Games_Screen extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games__screen);
+
     }
 
     @Override
@@ -40,7 +41,9 @@ public class Games_Screen extends ActionBarActivity {
     }
 
     public void FriendsButtonClicked(View view) {
+        String username = getIntent().getExtras().getString("username");
         Intent intent = new Intent(Games_Screen.this, Friends_List.class);
+        intent.putExtra("username", username);
         startActivity(intent);
 
 

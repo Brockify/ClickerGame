@@ -2,6 +2,7 @@
 print "Context-type: text/html\n\n"
 import MySQLdb
 import urllib2
+import json
 
 
 
@@ -140,12 +141,17 @@ def list_pending_friends(username):
 def list_friends(username):
     sql = "select all OtherUser from PokeWarFriend where LoggedInUser=%s"
     CUR.execute(sql, [username])
+    result = []
     friendslist = CUR.fetchall()
     if friendslist == ():
         print "User has no friends"
     else:
         for i in friendslist:
-            print i[0]
+            userDict = {}
+            userDict["username"] = i[0]
+            result.append(userDict)
+
+    return result
 def profanity_filter(word):
     profanity = urllib2.urlopen("http://www.skyrealmstudio.com/profanity.txt").read(20000)
     profanity = profanity.split("\n")

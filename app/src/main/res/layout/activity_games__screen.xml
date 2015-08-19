@@ -13,5 +13,6 @@
         android:id="@+id/button"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="false" />
+        android:layout_alignParentEnd="false"
+        android:onClick="FriendsButtonClicked" />
 </RelativeLayout>

@@ -81,7 +81,10 @@ public class Login extends ActionBarActivity {
         } else {
             new loginUser().execute();
             Intent intent = new Intent(Login.this, Games_Screen.class);
+            intent.putExtra("username", username);
             startActivity(intent);
+            intent.putExtra("username", username);
+
         }
     }
 class loginUser extends AsyncTask<Void, Void, Void>
