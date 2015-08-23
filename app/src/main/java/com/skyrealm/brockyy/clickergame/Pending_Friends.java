@@ -29,24 +29,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Friends_List extends ActionBarActivity {
+public class Pending_Friends extends ActionBarActivity {
     ArrayList<String> friendsusername = new ArrayList<String>();
     String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friends__list);
+        setContentView(R.layout.pending_friends);
         username = getIntent().getExtras().getString("username");
-       new friendlist().execute();
+        new pendingfriendlist().execute();
 
-    }
-    public void pendingfriendsButtonClicked(View view)
-    {
-        Intent intent = new Intent(Friends_List.this, Pending_Friends.class);
-        intent.putExtra("username", username);
-        startActivity(intent);
-        intent.putExtra("username", username);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,13 +64,13 @@ public class Friends_List extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    class friendlist extends AsyncTask<Void, Void, Void> {
+    class pendingfriendlist extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pDialog;
         String responseStr;
         String username = getIntent().getExtras().getString("username");
         @Override
         protected void onPreExecute() {
-            pDialog = new ProgressDialog(Friends_List.this);
+            pDialog = new ProgressDialog(Pending_Friends.this);
             pDialog.setMessage("Logging in...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -93,7 +86,7 @@ public class Friends_List extends ActionBarActivity {
             JSONArray json = null;
             // Create a new HttpClient and Post Header
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://www.skyrealmstudio.com/cgi-bin/PokeWars/Friends_List.py");
+            HttpPost httppost = new HttpPost("http://www.skyrealmstudio.com/cgi-bin/PokeWars/Pending_Friend_List.py");
 
 
             try {
@@ -132,8 +125,8 @@ public class Friends_List extends ActionBarActivity {
 
         public void onPostExecute(Void result)
         {
-            ArrayAdapter adapter = new ArrayAdapter(Friends_List.this, R.layout.friend_list_layout, R.id.friendusername, friendsusername);
-            ListView listView = (ListView) findViewById(R.id.listView);
+            ArrayAdapter adapter = new ArrayAdapter(Pending_Friends.this, R.layout.pending_friends_layout, R.id.pendingfriend, friendsusername);
+            ListView listView = (ListView) findViewById(R.id.listView2);
             listView.setAdapter(adapter);
             pDialog.dismiss();
         }

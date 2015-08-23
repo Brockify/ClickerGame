@@ -12,10 +12,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
+        android:choiceMode="multipleChoice"
+        android:clickable="false"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginTop="91dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pending"
+        android:id="@+id/pendingfriends"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:choiceMode="multipleChoice"
-        android:clickable="false" />
+        android:onClick="pendingfriendsButtonClicked" />
 </RelativeLayout>

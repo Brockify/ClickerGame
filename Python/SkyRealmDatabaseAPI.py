@@ -5,7 +5,6 @@ import urllib2
 import json
 
 
-
 db = MySQLdb.connect("localhost", "skyrealm","AndrewBrock@2013","skyrealm_PokeWars")
 
 CUR = db.cursor()
@@ -129,15 +128,19 @@ def accept_friend_request(UserSending, UserReceiving):
 def list_pending_friends(username):
     sql = "select all UserSending from PokeWarFriendRequest where UserReceiving=%s"
     CUR.execute(sql, [username])
+    result = []
     pendingfriends = CUR.fetchall()
     if pendingfriends == ():
         print "No Friend Requests"
     else:
         for i in pendingfriends:
-            print i[0]
+            userDict = {}
+            userDict["username"] = i[0]
+            result.append(userDict)
 
+    return result
 
-#returns "User has no friends" if they don't have any friends and returns a list of users if they do
+#returns "User has no friends" if they dont have any friends and returns a list of users if they do
 def list_friends(username):
     sql = "select all OtherUser from PokeWarFriend where LoggedInUser=%s"
     CUR.execute(sql, [username])
@@ -159,5 +162,3 @@ def profanity_filter(word):
         if word.find(badword) != -1:
             word = word.replace(badword, "*****")
             return "Profanity!"
-
-
