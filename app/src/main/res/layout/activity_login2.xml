@@ -37,7 +37,10 @@
         android:layout_below="@+id/passwordEditText"
         android:layout_alignLeft="@+id/registerButton"
         android:layout_alignStart="@+id/registerButton" />
-
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/passwordEditText"
+        android:layout_alignEnd="@+id/passwordEditText"
+        android:onClick="loginButtonClicked" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,5 +49,4 @@
         android:layout_below="@+id/loginButton"
         android:layout_centerHorizontal="true"
         android:onClick="registerButtonClicked" />
-
 </RelativeLayout>
