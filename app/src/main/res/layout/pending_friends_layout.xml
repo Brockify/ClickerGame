@@ -15,7 +15,9 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="accept"
-        android:id="@+id/accept"
-        android:layout_gravity="right" />
+        android:text="Accept"
+        android:id="@+id/accept_friend"
+        android:layout_gravity="right"
+        android:onClick="acceptfriendButtonClicked" />
+
 </LinearLayout>

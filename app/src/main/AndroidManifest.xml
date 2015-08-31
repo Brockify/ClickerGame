@@ -31,7 +31,9 @@
             android:name=".Games_Screen"
             android:label="@string/title_activity_register" >
         </activity>
-
+        <activity android:name=".Pending_Friends"
+                  android:label="Pending"
+            />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

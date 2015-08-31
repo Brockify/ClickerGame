@@ -38,15 +38,15 @@ public class Friends_List extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends__list);
         username = getIntent().getExtras().getString("username");
-       new friendlist().execute();
+        new friendlist().execute();
 
     }
     public void pendingfriendsButtonClicked(View view)
     {
+        String username = getIntent().getExtras().getString("username");
         Intent intent = new Intent(Friends_List.this, Pending_Friends.class);
         intent.putExtra("username", username);
         startActivity(intent);
-        intent.putExtra("username", username);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,7 +74,7 @@ public class Friends_List extends ActionBarActivity {
     class friendlist extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pDialog;
         String responseStr;
-        String username = getIntent().getExtras().getString("username");
+
         @Override
         protected void onPreExecute() {
             pDialog = new ProgressDialog(Friends_List.this);
