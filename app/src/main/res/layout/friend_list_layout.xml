@@ -9,4 +9,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="friendusername"
         android:id="@+id/friendusername" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Friend"
+        android:id="@+id/deletefriend"
+        android:layout_gravity="right"
+        android:onClick="deletefriendButtonClicked" />
 </LinearLayout>

@@ -102,7 +102,7 @@ def send_friend_request(UserSending, UserReceiving):
     sql = "select Username from PokeWarUsers where Username=%s"
     CUR.execute(sql, UserReceiving)
     if CUR.fetchone() == None:
-        return "User Doesn't exist"
+        print "User Doesn't exist"
     else:
         sql = "select UserReceiving from PokeWarFriendRequest where UserSending=%s and UserReceiving=%s"
         CUR.execute(sql, (UserSending, UserReceiving))
@@ -124,20 +124,28 @@ def accept_friend_request(UserSending, UserReceiving):
         CUR.execute(sql, (UserSending, UserReceiving))
         sql = "insert into PokeWarFriend(OtherUser,LoggedInUser) values (%s, %s)"
         CUR.execute(sql, (UserSending, UserReceiving))
+        sql = "delete from PokeWarFriendRequest where UserSending=%s and UserReceiving=%s"
+        CUR.execute(sql, (UserSending, UserReceiving))
         print "Friend Added"
+def delete_friend(UserSending, UserReceiving):
+    sql = "delete from PokeWarFriend where LoggedInUser=%s and OtherUser=%s"
+    CUR.execute(sql,(UserSending, UserReceiving))
+    sql = "delete from PokeWarFriend where LoggedInUser=%s and OtherUser=%s"
+    CUR.execute(sql,(UserReceiving,UserSending))
+    print "Friend Deleted"
 def list_pending_friends(username):
     sql = "select all UserSending from PokeWarFriendRequest where UserReceiving=%s"
     CUR.execute(sql, [username])
     result = []
     pendingfriends = CUR.fetchall()
-    if pendingfriends == ():
+    if pendingfriends == 0:
         print "No Friend Requests"
     else:
         for i in pendingfriends:
             userDict = {}
             userDict["username"] = i[0]
             result.append(userDict)
-
+    
     return result
 
 #returns "User has no friends" if they dont have any friends and returns a list of users if they do
@@ -146,7 +154,8 @@ def list_friends(username):
     CUR.execute(sql, [username])
     result = []
     friendslist = CUR.fetchall()
-    if friendslist == ():
+   
+    if friendslist == 0:
         print "User has no friends"
     else:
         for i in friendslist:
