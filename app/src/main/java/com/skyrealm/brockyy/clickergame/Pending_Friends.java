@@ -50,6 +50,14 @@ public class Pending_Friends extends ActionBarActivity {
         new pendingfriendlist().execute();
 
     }
+    public void addfriendButtonClicked(View view){
+        String username = getIntent().getExtras().getString("username");
+        Intent intent = new Intent(Pending_Friends.this, Add_Friend.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+
+
+    }
 
 
     @Override
@@ -143,6 +151,7 @@ public class Pending_Friends extends ActionBarActivity {
             pDialog.dismiss();
         }
     }
+
     public void acceptfriendButtonClicked(View view){
 
         LinearLayout OtherUserRow = (LinearLayout) view.getParent();
@@ -212,5 +221,6 @@ public class Pending_Friends extends ActionBarActivity {
             pDialog.dismiss();
         }
     }
+
 
 }

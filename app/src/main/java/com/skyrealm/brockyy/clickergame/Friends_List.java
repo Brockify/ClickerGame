@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -123,6 +124,7 @@ public class Friends_List extends ActionBarActivity {
                 try {
                     friend = json.getJSONObject(counter).getString("username");
                     friendsusername.add(friend);
+                    Log.d("Message:", friendsusername.get(counter));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
