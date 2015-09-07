@@ -103,7 +103,9 @@ def send_friend_request(UserSending, UserReceiving):
     CUR.execute(sql, UserReceiving)
     if CUR.fetchone() == None:
         print "User Doesn't exist"
-    else:
+    sql = "select OtherUser from PokeWarFriend where OtherUser=%s and LoggedInUser=%s"
+    CUR.execute(sql, (UserReceiving, UserSending))
+    if CUR.fetchone() == None:
         sql = "select UserReceiving from PokeWarFriendRequest where UserSending=%s and UserReceiving=%s"
         CUR.execute(sql, (UserSending, UserReceiving))
         if CUR.fetchone() == None:
@@ -112,6 +114,8 @@ def send_friend_request(UserSending, UserReceiving):
             print "Friend request sent"
         else:
             print "Friend request already sent to this person"
+    else:
+        print "User already friend!"
 
 #accept_friend_request returns "Friend Added" if friend is added and returns "User Already a friend" to catch errors
 def accept_friend_request(UserSending, UserReceiving):
