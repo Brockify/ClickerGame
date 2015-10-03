@@ -102,7 +102,7 @@ public class Register extends ActionBarActivity {
             HttpResponse response;
             HttpClient httpClient = new DefaultHttpClient();
 
-            HttpPost httpPost = new HttpPost("http://www.skyrealmstudio.com/cgi-bin/PokeWars/Register.py");
+            HttpPost httpPost = new HttpPost("http://www.skyrealmstudio.com/cgi-bin/WW3/Register.py");
 
             List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>();
             nameValuePair.add(new BasicNameValuePair("username", username));

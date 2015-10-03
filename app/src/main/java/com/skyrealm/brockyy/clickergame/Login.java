@@ -108,7 +108,7 @@ class loginUser extends AsyncTask<Void, Void, Void>
         HttpResponse response;
         HttpClient httpClient = new DefaultHttpClient();
 
-        HttpPost httpPost = new HttpPost("http://www.skyrealmstudio.com/cgi-bin/PokeWars/Login.py");
+        HttpPost httpPost = new HttpPost("http://www.skyrealmstudio.com/cgi-bin/WW3/Login.py");
 
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>();
         nameValuePair.add(new BasicNameValuePair("username", username));
