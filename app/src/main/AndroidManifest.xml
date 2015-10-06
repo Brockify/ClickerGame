@@ -3,6 +3,9 @@
     package="com.skyrealm.brockyy.clickergame" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <!--
      To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
@@ -28,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Games_Screen"
+            android:name=".Register"
             android:label="@string/title_activity_register" >
         </activity>
 
@@ -37,12 +40,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".Register"
+            android:name=".Games_Screen"
             android:label="@string/app_name" />
-        <activity
-            android:name=".Friends_List"
-            android:label="@string/title_activity_friends__list" >
-        </activity>
     </application>
 
 </manifest>
